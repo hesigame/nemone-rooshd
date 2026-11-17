@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>آزمایشگاه فعل امر | عربی نهم</title>
+<style>
+:root{--bg:#f3f6fb;--panel:#ffffff;--panel2:#edf2f8;--text:#17243a;--muted:#63728a;--cyan:#087e8b;--purple:#5946a8;--green:#13865c;--red:#d43d54;--line:#d5deea;--gold:#8a5a00}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Tahoma,"Vazirmatn",sans-serif;line-height:1.9}
+.wrap{max-width:1050px;margin:auto;padding:24px 16px 70px}.hero{padding:30px;border:1px solid var(--line);border-radius:18px;background:#ffffff;box-shadow:0 5px 18px #24344a12}
+.kicker{color:var(--cyan);font-size:13px;font-weight:bold;letter-spacing:1px}.hero h1{font-size:clamp(27px,5vw,43px);margin:8px 0;color:#142b49}.hero p{color:var(--muted);max-width:780px;margin:0}
+.credits{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.credit{background:#edf3f8;border:1px solid #d5e0eb;border-radius:10px;padding:7px 12px;color:#344963;font-size:13px}.credit b{color:#152f50}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}.stat{background:#f5f8fc;border:1px solid var(--line);padding:12px;border-radius:12px;text-align:center}.stat b{display:block;font-size:23px;color:var(--cyan)}.stat span{font-size:12px;color:var(--muted)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:20px 0}.toolbar button,.action{border:1px solid var(--line);border-radius:10px;padding:10px 15px;background:#fff;color:var(--text);font:inherit;cursor:pointer}.toolbar button.active{background:#dceff1;border-color:#5aaeb5;color:#075b64}
+.progress{height:8px;background:#dce4ee;border-radius:9px;overflow:hidden;flex:1;min-width:130px}.progress>div{height:100%;width:0;background:#138b98;transition:width .35s}
+.question{background:#fff;border:1px solid var(--line);border-radius:16px;padding:23px;margin:15px 0;box-shadow:0 4px 14px #24344a0b}
+.qtop{display:flex;justify-content:space-between;gap:10px;align-items:center;color:var(--muted);font-size:13px}.tag{border:1px solid #cbd8e8;border-radius:30px;padding:3px 10px;color:#385a7b;background:#f3f7fb}.question h2{font-size:19px;margin:14px 0 8px}.prompt{color:#586a82;margin-bottom:16px}.arabic{font-family:"Times New Roman",serif;font-size:1.3em;direction:rtl;display:inline-block;color:#17243a}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.option{display:flex;align-items:center;gap:10px;text-align:right;width:100%;padding:13px;border:1px solid #d5deea;border-radius:11px;background:#f7f9fc;color:var(--text);font:inherit;cursor:pointer;transition:.18s}.option:hover:not(:disabled){border-color:#4d9da5;background:#eef8f8}.letter{display:grid;place-items:center;min-width:28px;height:28px;border-radius:8px;background:#e4ebf4;color:#304d70;font-size:13px}.option:disabled{cursor:default;opacity:1}.option.correct{border-color:#55a98a;background:#e4f5ed}.option.wrong{border-color:#db8290;background:#fff0f1}
+.feedback{display:none;margin-top:16px;padding:15px;border-radius:12px;border:1px solid var(--line);background:#f8fafc}.feedback.show{display:block;animation:rise .3s ease}.result{display:flex;align-items:center;gap:12px;font-weight:bold;font-size:17px}.mark{font-size:32px;animation:pop .45s cubic-bezier(.2,1.6,.4,1)}.good{color:var(--green)}.bad{color:var(--red)}.tip{margin-top:10px;color:#34445b}.tip strong{color:var(--gold)}.tip.hidden{display:none}.why{margin-top:10px;border:1px solid #b8c9dc;background:#eaf1f8;color:#243e5d;border-radius:9px;padding:7px 12px;font:inherit;cursor:pointer}
+.footer{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:20px}.action.primary{background:#176f7b;color:#fff;border:0}.action:disabled{opacity:.4;cursor:not-allowed}
+.summary{display:none;text-align:center;padding:28px;background:#fff;border:1px solid var(--line);border-radius:16px;margin-top:20px}.summary.show{display:block}.summary h2{color:var(--cyan)}.summary .big{font-size:42px;font-weight:bold}
+.note{color:var(--muted);font-size:13px;margin-top:20px}.small{font-size:12px;color:var(--muted)}
+@keyframes pop{0%{transform:scale(.2) rotate(-25deg);opacity:0}70%{transform:scale(1.25)}100%{transform:scale(1);opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:650px){.stats{grid-template-columns:repeat(2,1fr)}.options{grid-template-columns:1fr}.question{padding:17px}.hero{padding:22px}.qtop{align-items:flex-start;flex-direction:column}.footer{flex-direction:column;align-items:stretch}.footer button{width:100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+<div class="kicker">ARABIC GRAMMAR LAB · پایه نهم · سطح پیشرفته</div>
+<h1>آزمایشگاه فعل امر</h1>
+<p>آزمونی پیشرفته برای تسلط بر ساخت، تشخیص، صیغه‌ها و کاربرد فعل امر؛ همراه با بخش ویژه‌ای شامل ۱۰ سؤال کاملاً عربی.</p>
+<div class="credits">
+  <div class="credit">طراح و سازنده: <b>آرین جلالی مفرد</b> · <bdi dir="ltr">Aryan Jalali Mofrad</bdi></div>
+  <div class="credit">دبیر: <b>استاد حاجیوند</b></div>
+</div>
+<div class="stats">
+<div class="stat"><b id="total">۲۸</b><span>چالش</span></div>
+<div class="stat"><b id="done">۰</b><span>پاسخ داده‌شده</span></div>
+<div class="stat"><b id="score">۰</b><span>پاسخ درست</span></div>
+<div class="stat"><b id="percent">۰٪</b><span>درصد موفقیت</span></div>
+</div>
+</header>
+<div class="toolbar">
+<button class="active" data-filter="all">همهٔ سؤال‌ها</button>
+<button data-filter="build">ساخت فعل</button>
+<button data-filter="forms">صیغه‌ها</button>
+<button data-filter="analyze">تحلیل و تشخیص</button>
+<button data-filter="arabic">عَرَبِيٌّ فَقَطْ</button>
+<div class="progress"><div id="bar"></div></div>
+</div>
+<main id="quiz"></main>
+<section class="summary" id="summary">
+<h2>پایان آزمایشگاه!</h2><div class="big" id="finalScore">۰ از ۲۸</div><p id="finalText"></p>
+<button class="action primary" onclick="restart()">شروع دوبارهٔ آزمون</button>
+</section>
+<p class="note">راهنما: در هر سؤال فقط یک گزینه درست است. پس از انتخاب، پاسخ درست و نکتهٔ آموزشی نمایش داده می‌شود. دکمهٔ «؟ نکتهٔ تکمیلی» برای مرور قاعده‌های مهم است.</p>
+</div>
+<script>
+const questions = [
+{cat:"build",tag:"ساخت فعل امر",q:"امرِ مخاطب مفرد مذکر از «يَكْتُبُ» کدام است؟",opts:["اُكْتُبْ","أَكْتُبْ","يَكْتُبْ","كُتِبَ"],a:0,tip:"برای ساخت امرِ ثلاثی، از مضارعِ مخاطب آغاز می‌کنیم: حرف مضارعه را حذف می‌کنیم. چون ابتدای «كْتُبْ» ساکن شده، همزهٔ وصل می‌آوریم. چون حرکت عین مضارع ضمه است، همزهٔ وصل مضموم می‌شود: اُكْتُبْ."},
+{cat:"build",tag:"ساخت فعل امر",q:"امرِ «يَجْلِسُ» برای «أنتَ» کدام است؟",opts:["اُجْلُسْ","اِجْلِسْ","أَجْلِسْ","جَلَسَ"],a:1,tip:"مضارعِ «جَلَسَ» در اینجا يَجْلِسُ است. پس از حذف حرف مضارعه، «جْلِسْ» می‌ماند و برای رفع سکون آغازین همزهٔ وصل می‌آید. چون حرکت عین مضارع کسره است، همزه نیز کسره می‌گیرد: اِجْلِسْ."},
+{cat:"build",tag:"ساخت فعل امر",q:"کدام گزینه امرِ درستِ فعل «يَفْتَحُ» است؟",opts:["اُفْتَحْ","اِفْتَحْ","أَفْتَحْ","فَتَحْ"],a:1,tip:"در ثلاثی، اگر حرکت عین مضارع فتحه باشد، همزهٔ وصل معمولاً کسره می‌گیرد؛ بنابراین اِفْتَحْ درست است، نه اُفْتَحْ."},
+{cat:"build",tag:"ساخت فعل امر",q:"امرِ مخاطب مفرد از «يَذْهَبُ» را انتخاب کن.",opts:["اُذْهَبْ","اِذْهَبْ","أَذْهَبُ","ذَهَبَ"],a:1,tip:"مضارع يَذْهَبُ ← حذف «يَـ» ← ذْهَبْ. برای آغاز با حرف ساکن، همزهٔ وصل اضافه می‌شود؛ چون حرکت عین مضارع فتحه است، همزه کسره می‌گیرد: اِذْهَبْ."},
+{cat:"build",tag:"ساخت فعل امر",q:"امرِ فعل «يَسْمَعُ» کدام است؟",opts:["اُسْمَعْ","اِسْمَعْ","أَسْمَعُ","سَمِعَ"],a:1,tip:"حرکت حرف میانی در يَسْمَعُ فتحه است؛ در این حالت همزهٔ وصل با کسره می‌آید: اِسْمَعْ."},
+{cat:"build",tag:"ساخت فعل امر",q:"امرِ مخاطب مفرد از «يَكْرُمُ» کدام گزینه است؟",opts:["اِكْرُمْ","اُكْرُمْ","أَكْرَمَ","كَرُمَ"],a:1,tip:"در يَكْرُمُ حرکت عین مضارع ضمه است؛ پس همزهٔ وصل نیز ضمه می‌گیرد: اُكْرُمْ. به تفاوت حرکت عین مضارع با حرکت حرف اول دقت کن."},
+{cat:"build",tag:"ساخت فعل امر",q:"امرِ «يُكْرِمُ» برای مخاطب مفرد مذکر چیست؟",opts:["اِكْرِمْ","أَكْرِمْ","كَرِمْ","يُكْرِمْ"],a:1,tip:"«أَكْرَمَ ـ يُكْرِمُ» از باب إفعال است. امر آن «أَكْرِمْ» است و با همزهٔ قطع نوشته می‌شود؛ اینجا قاعدهٔ همزهٔ وصلِ فعل ثلاثی را به‌کار نبر."},
+{cat:"build",tag:"ساخت فعل امر",q:"امرِ «يُعَلِّمُ» کدام است؟",opts:["عَلِّمْ","أَعْلَمْ","تَعَلَّمْ","يُعَلِّمْ"],a:0,tip:"فعل «عَلَّمَ ـ يُعَلِّمُ» در امر می‌شود «عَلِّمْ». در این ساخت، پس از حذف حرف مضارعه، آغاز فعل ساکن نیست؛ بنابراین همزهٔ وصل لازم نیست."},
+{cat:"build",tag:"ساخت فعل امر",q:"امرِ «يَسْتَخْرِجُ» برای «أنتَ» کدام است؟",opts:["اِسْتَخْرِجْ","أَسْتَخْرِجْ","خْرِجْ","يَسْتَخْرِجْ"],a:0,tip:"امرِ باب استفعال از مضارع مخاطب ساخته می‌شود: تَسْتَخْرِجُ ← حذف تـ و آوردن همزهٔ وصل: اِسْتَخْرِجْ. این همزه وصل است، نه قطع."},
+{cat:"build",tag:"ساخت فعل امر",q:"کدام گزینه امرِ صحیحِ «يَنْصُرُ» است؟",opts:["اُنْصُرْ","اِنْصُرْ","أَنْصُرُ","نَصَرَ"],a:0,tip:"در يَنْصُرُ حرکت عین مضارع ضمه است؛ پس همزهٔ وصل مضموم می‌آید: اُنْصُرْ."},
+{cat:"forms",tag:"صیغه‌ها",q:"امرِ «اُكْتُبْ» برای مخاطب مثنّی مذکر کدام است؟",opts:["اُكْتُبُوا","اُكْتُبَا","اُكْتُبِي","يَكْتُبَانِ"],a:1,tip:"برای مخاطب مثنّی، «الفِ اثنین» به پایان فعل امر افزوده می‌شود: اُكْتُبَا. «واو الجماعة» مخصوص جمع مذکر است."},
+{cat:"forms",tag:"صیغه‌ها",q:"امرِ «اِجْلِسْ» برای جمع مذکر مخاطب چیست؟",opts:["اِجْلِسَا","اِجْلِسِي","اِجْلِسُوا","يَجْلِسُونَ"],a:2,tip:"جمع مذکر مخاطب با واو جماعت ساخته می‌شود: اِجْلِسُوا. الفِ فارقه پس از واو جماعت نوشته می‌شود."},
+{cat:"forms",tag:"صیغه‌ها",q:"امرِ «اِفْتَحْ» برای مفرد مؤنث مخاطب کدام است؟",opts:["اِفْتَحَا","اِفْتَحِي","اِفْتَحُوا","تَفْتَحِينَ"],a:1,tip:"در مفرد مؤنث مخاطب، یاءِ مخاطبه به پایان امر می‌آید: اِفْتَحِي."},
+{cat:"forms",tag:"صیغه‌ها",q:"کدام گزینه امرِ جمع مؤنث مخاطب از «يَكْتُبُ» است؟",opts:["اُكْتُبْنَ","اُكْتُبُوا","اُكْتُبِي","يَكْتُبْنَ"],a:0,tip:"جمع مؤنث مخاطب با نون النسوة ساخته می‌شود: اُكْتُبْنَ. این نون را با نونِ صیغه‌های مضارع اشتباه نگیر."},
+{cat:"forms",tag:"صیغه‌ها",q:"در کدام گزینه فعل امر برای مخاطب مثنّی مؤنث آمده است؟",opts:["اِذْهَبِي","اِذْهَبَا","اِذْهَبْنَ","اِذْهَبُوا"],a:1,tip:"در عربی، صیغهٔ مثنّی مخاطب برای مذکر و مؤنث یکسان است: اِذْهَبَا. جنسیت از ضمیر یا بافت جمله فهمیده می‌شود."},
+{cat:"forms",tag:"صیغه‌ها",q:"کدام تطبیق ضمیر و فعل امر نادرست است؟",opts:["أنتَ: اُنْصُرْ","أنتِ: اُنْصُرِي","أنتما: اُنْصُرَا","أنتم: اُنْصُرْنَ"],a:3,tip:"«أنتُم» جمع مذکر است و فعل آن با واو جماعت می‌آید: اُنْصُرُوا. «اُنْصُرْنَ» برای «أنتُنَّ» جمع مؤنث است."},
+{cat:"forms",tag:"صیغه‌ها",q:"در فعل «اُكْتُبُوا»، کدام جزء نشانهٔ جمع مذکر مخاطب است؟",opts:["همزهٔ وصل","واو جماعت","الف فارقه","سکون باء"],a:1,tip:"واو جماعت نشان‌دهندهٔ جمع مذکر است. الفی که پس از آن می‌آید معمولاً خوانده نمی‌شود و به آن الف فارقه می‌گویند."},
+{cat:"analyze",tag:"تشخیص و تحلیل",q:"کدام جمله دارای فعل امر است؟",opts:["لا تَكْذِبْ","لَنْ تَكْذِبَ","اِصْدُقْ في كَلامِكَ","ما كَذَبَ"],a:2,tip:"«اِصْدُقْ» فعل امر است و درخواست انجام کار را می‌رساند. «لا تَكْذِبْ» فعل مضارع مجزوم با لای نهی است؛ معنایش نهی است، اما از نظر ساخت فعل امر نیست."},
+{cat:"analyze",tag:"تشخیص و تحلیل",q:"کدام عبارت، نهی است نه امر؟",opts:["اِسْمَعْ","اِذْهَبْ","لا تَلْعَبْ","اِفْهَمْ"],a:2,tip:"«لا تَلْعَبْ» مضارع مجزوم پس از لای ناهیه است و معنی «بازی نکن» دارد. امر مستقیمِ «بازی کن» می‌شود «اِلْعَبْ»."},
+{cat:"analyze",tag:"تشخیص و تحلیل",q:"در عبارت «يا طالِبُ، اِقْرَأْ الدَّرْسَ»، فعل امر کدام است؟",opts:["يا","طالِبُ","اِقْرَأْ","الدَّرْسَ"],a:2,tip:"«اِقْرَأْ» فعل امر و «الدَّرْسَ» مفعول‌به آن است. «يا» حرف ندا و «طالِبُ» منادا است."},
+{cat:"analyze",tag:"تشخیص و تحلیل",q:"کدام گزینه از نظر املای همزه درست است؟",opts:["أُكْتُبْ","اُكْتُبْ","إُكْتُبْ","اُكْتَبْ"],a:1,tip:"امر ثلاثیِ «كَتَبَ ـ يَكْتُبُ» با همزهٔ وصل و ضمه نوشته می‌شود: اُكْتُبْ. همزهٔ وصل در آغاز کلمه به شکل «ا» نوشته می‌شود، نه «أ» یا «إ»."},
+{cat:"analyze",tag:"تشخیص و تحلیل",q:"کدام جمله از نظر کاربرد فعل امر درست است؟",opts:["أنتَ يَكْتُبُ الدَّرْسَ","أنتِ اُكْتُبِي الدَّرْسَ","أنتُم اُكْتُبُوا الدَّرْسَ","أنتُنَّ اُكْتُبُوا الدَّرْسَ"],a:2,tip:"«أنتُم» جمع مذکر مخاطب است و «اُكْتُبُوا» با آن هماهنگ است. برای «أنتِ» باید «اُكْتُبِي» و برای «أنتُنَّ» باید «اُكْتُبْنَ» بیاید."},
+{cat:"analyze",tag:"تشخیص و تحلیل",q:"کدام مورد دربارهٔ فعل امر درست است؟",opts:["برای غایب به کار می‌رود","همیشه با لای ناهیه ساخته می‌شود","درخواست انجام کار از مخاطب را می‌رساند","همیشه اولش همزهٔ قطع دارد"],a:2,tip:"فعل امر در کاربرد معمول، طلب انجام کار از مخاطب است. نهی با «لا الناهية + مضارع مجزوم» ساخته می‌شود و همزهٔ آغازین امر نیز همیشه وجود ندارد."},
+{cat:"analyze",tag:"تشخیص و تحلیل",q:"در «اِذْهَبُوا إِلَى الْمَدْرَسَةِ»، فاعل فعل امر چگونه فهمیده می‌شود؟",opts:["از واو جماعت","از همزهٔ وصل","از کسرهٔ ذال","از حرف جرّ إِلى"],a:0,tip:"واو جماعت ضمیر متصل و در اینجا فاعل فعل امر است؛ به گروه مخاطب مذکر اشاره می‌کند."},
+{cat:"analyze",tag:"تشخیص و تحلیل",q:"کدام گزینه فعل امرِ ساخته‌شده از مضارعِ «تَفْهَمُ» است؟",opts:["اِفْهَمْ","أَفْهَمُ","فَهِمَ","يَفْهَمُ"],a:0,tip:"تَفْهَمُ ← حذف حرف مضارعه «تـ» و افزودن همزهٔ وصل برای آغاز ساکن: اِفْهَمْ."},
+{cat:"build",tag:"ساخت فعل امر",q:"امرِ مخاطب مفرد از «تَذَكَّرُ» (مضارعِ تَذَكَّرَ) کدام است؟",opts:["تَذَكَّرْ","ذَكِّرْ","تَذَكَّرَ","اُذْكُرْ"],a:0,tip:"در این فعل، مضارع مخاطب «تَتَذَكَّرُ» است؛ با حذف یکی از حروف مضارعه، صورت امر «تَذَكَّرْ» به دست می‌آید. آن را با «ذَكِّرْ» از باب تفعيل اشتباه نکن."},
+{cat:"build",tag:"ساخت فعل امر",q:"امرِ «يُدَرِّسُ» برای مخاطب مفرد مذکر کدام است؟",opts:["دَرِّسْ","اُدْرُسْ","أَدْرِسْ","يُدَرِّسْ"],a:0,tip:"«دَرَّسَ ـ يُدَرِّسُ» از باب تفعيل است؛ امر آن «دَرِّسْ» است. «اُدْرُسْ» امرِ «دَرَسَ ـ يَدْرُسُ» و معنای دیگری دارد."},
+{cat:"analyze",tag:"تشخیص و تحلیل",q:"در کدام گزینه همزهٔ آغازین، همزهٔ قطع است؟",opts:["اِجْلِسْ","اُكْتُبْ","أَكْرِمْ","اِفْتَحْ"],a:2,tip:"«أَكْرِمْ» امرِ باب إفعال است و با همزهٔ قطع آغاز می‌شود؛ همزهٔ وصلِ فعل‌های ثلاثی مانند «اِجْلِسْ» در نوشتار بدون علامت همزه می‌آید."}
+,
+{cat:"arabic",tag:"تَدْرِيبٌ بِاللُّغَةِ الْعَرَبِيَّةِ",q:"اِخْتَرْ فِعْلَ الْأَمْرِ الصَّحِيحَ مِنَ الْفِعْلِ «يَفْتَحُ» لِلْمُخَاطَبِ الْمُفْرَدِ الْمُذَكَّرِ:",opts:["اِفْتَحْ","اُفْتَحْ","أَفْتَحُ","فَتَحَ"],a:0,tip:"الْجَوَابُ: «اِفْتَحْ». نَحْذِفُ حَرْفَ الْمُضَارَعَةِ، وَنَأْتِي بِهَمْزَةِ الْوَصْلِ مَكْسُورَةً؛ لِأَنَّ عَيْنَ الْمُضَارِعِ مَفْتُوحَةٌ."},
+{cat:"arabic",tag:"تَدْرِيبٌ بِاللُّغَةِ الْعَرَبِيَّةِ",q:"مَا صِيغَةُ الْأَمْرِ لِلْمُخَاطَبَةِ الْمُفْرَدَةِ مِنَ الْفِعْلِ «يَجْلِسُ»؟",opts:["اِجْلِسِي","اِجْلِسُوا","اِجْلِسَا","اِجْلِسْنَ"],a:0,tip:"ضَمِيرُ «أَنْتِ» يَدُلُّ عَلَى الْمُخَاطَبَةِ الْمُفْرَدَةِ، وَعَلَامَتُهَا يَاءُ الْمُخَاطَبَةِ: «اِجْلِسِي»."},
+{cat:"arabic",tag:"تَدْرِيبٌ بِاللُّغَةِ الْعَرَبِيَّةِ",q:"عَيِّنِ الْجُمْلَةَ الَّتِي تَشْتَمِلُ عَلَى فِعْلِ أَمْرٍ:",opts:["لَا تُهْمِلْ وَاجِبَكَ","لَنْ يُهْمِلَ الطَّالِبُ","اِحْفَظُوا الدَّرْسَ","الطَّالِبُ يَحْفَظُ الدَّرْسَ"],a:2,tip:"«اِحْفَظُوا» فِعْلُ أَمْرٍ لِلْجَمْعِ الْمُذَكَّرِ. أَمَّا «لَا تُهْمِلْ» فَفِعْلٌ مُضَارِعٌ مَجْزُومٌ بِلَا النَّاهِيَةِ."},
+{cat:"arabic",tag:"تَدْرِيبٌ بِاللُّغَةِ الْعَرَبِيَّةِ",q:"أَيُّ ضَمِيرٍ يُنَاسِبُ فِعْلَ الْأَمْرِ «اُكْتُبْنَ»؟",opts:["أَنْتَ","أَنْتُمَا","أَنْتُنَّ","أَنْتُمْ"],a:2,tip:"«اُكْتُبْنَ» لِلْمُخَاطَبَاتِ جَمْعًا، وَالنُّونُ فِيهِ نُونُ النِّسْوَةِ."},
+{cat:"arabic",tag:"تَدْرِيبٌ بِاللُّغَةِ الْعَرَبِيَّةِ",q:"أَكْمِلِ الْجُمْلَةَ بِفِعْلِ الْأَمْرِ الْمُنَاسِبِ: «يَا طَالِبَانِ، ... الدَّرْسَ».",opts:["اِقْرَأْ","اِقْرَآ","اِقْرَؤُوا","اِقْرَئِي"],a:1,tip:"الْمُخَاطَبُ مُثَنًّى، لِذَلِكَ نَسْتَعْمِلُ أَلِفَ الِاثْنَيْنِ: «اِقْرَآ»."},
+{cat:"arabic",tag:"تَدْرِيبٌ بِاللُّغَةِ الْعَرَبِيَّةِ",q:"مَا نَوْعُ الْهَمْزَةِ فِي فِعْلِ الْأَمْرِ «أَكْرِمْ»؟",opts:["هَمْزَةُ وَصْلٍ","هَمْزَةُ قَطْعٍ","لَا تُوجَدُ هَمْزَةٌ","هَمْزَةٌ مُتَطَرِّفَةٌ"],a:1,tip:"«أَكْرِمْ» أَمْرُ الْفِعْلِ الرُّبَاعِيِّ «أَكْرَمَ»، وَهَمْزَتُهُ هَمْزَةُ قَطْعٍ."},
+{cat:"arabic",tag:"تَدْرِيبٌ بِاللُّغَةِ الْعَرَبِيَّةِ",q:"اخْتَرِ الْفِعْلَ الصَّحِيحَ لِلْمُخَاطَبِينَ جَمْعًا مُذَكَّرًا:",opts:["اِسْمَعِي","اِسْمَعَا","اِسْمَعُوا","اِسْمَعْنَ"],a:2,tip:"جَمْعُ الْمُذَكَّرِ الْمُخَاطَبِ يَأْخُذُ وَاوَ الْجَمَاعَةِ: «اِسْمَعُوا»."},
+{cat:"arabic",tag:"تَدْرِيبٌ بِاللُّغَةِ الْعَرَبِيَّةِ",q:"أَيُّ عِبَارَةٍ تَدُلُّ عَلَى النَّهْيِ لَا عَلَى الْأَمْرِ؟",opts:["اِفْهَمِ السُّؤَالَ","اِحْفَظِ الْقَاعِدَةَ","لَا تُسْرِعْ فِي الْإِجَابَةِ","اِفْتَحِ الْكِتَابَ"],a:2,tip:"النَّهْيُ يَتَكَوَّنُ مِنْ «لَا النَّاهِيَةِ» وَالْفِعْلِ الْمُضَارِعِ الْمَجْزُومِ، وَمَعْنَاهُ طَلَبُ تَرْكِ الْفِعْلِ."},
+{cat:"arabic",tag:"تَدْرِيبٌ بِاللُّغَةِ الْعَرَبِيَّةِ",q:"مَا إِعْرَابُ الْفِعْلِ «اُكْتُبُوا»؟",opts:["فِعْلٌ مَاضٍ","فِعْلٌ مُضَارِعٌ مَرْفُوعٌ","فِعْلُ أَمْرٍ مَبْنِيٌّ عَلَى حَذْفِ النُّونِ","فِعْلٌ مَاضٍ مَبْنِيٌّ عَلَى الْفَتْحِ"],a:2,tip:"«اُكْتُبُوا» فِعْلُ أَمْرٍ مَبْنِيٌّ عَلَى حَذْفِ النُّونِ؛ لِأَنَّهُ مِنَ الْأَفْعَالِ الْخَمْسَةِ فِي صِيغَةِ الْمُضَارِعِ الَّتِي يُقَابِلُهَا هَذَا الْبِنَاءُ."},
+{cat:"arabic",tag:"تَدْرِيبٌ بِاللُّغَةِ الْعَرَبِيَّةِ",q:"حَدِّدِ الْفَاعِلَ فِي الْجُمْلَةِ: «اِذْهَبِي إِلَى الْمَكْتَبَةِ».",opts:["ضَمِيرٌ مُسْتَتِرٌ تَقْدِيرُهُ أَنْتِ","يَاءُ الْمُخَاطَبَةِ","الْمَكْتَبَةِ","ضَمِيرٌ مُسْتَتِرٌ تَقْدِيرُهُ هِيَ"],a:0,tip:"فَاعِلُ فِعْلِ الْأَمْرِ ضَمِيرٌ مُسْتَتِرٌ وُجُوبًا تَقْدِيرُهُ «أَنْتِ». يَاءُ الْمُخَاطَبَةِ عَلَامَةٌ لِلصِّيغَةِ وَلَيْسَتْ هِيَ الْفَاعِلَ."}
+
+];
+let answers={}, filter="all";
+const fa=n=>String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
+function render(){
+ const list=questions.map((q,i)=>({...q,i})).filter(q=>filter==="all"||q.cat===filter);
+ document.getElementById("quiz").innerHTML=list.map(q=>{
+ const chosen=answers[q.i]; const done=chosen!==undefined; const ok=chosen===q.a;
+ return `<article class="question" id="q${q.i}"><div class="qtop"><span>چالش ${fa(q.i+1)} از ${fa(questions.length)}</span><span class="tag">${q.tag}</span></div><h2>${q.q}</h2><div class="prompt">گزینهٔ درست را انتخاب کن:</div><div class="options">${q.opts.map((o,j)=>`<button class="option ${done&&j===q.a?'correct':''} ${done&&j===chosen&&!ok?'wrong':''}" ${done?'disabled':''} onclick="answer(${q.i},${j})"><span class="letter">${"الفبپتثجچ"[j]}</span><span>${o}</span></button>`).join("")}</div><div class="feedback ${done?'show':''}" id="fb${q.i}">${done?`<div class="result ${ok?'good':'bad'}"><span class="mark">${ok?'✓':'✕'}</span><span>${ok?'آفرین! پاسخ درست است.':'این گزینه درست نیست.'}</span></div>${ok?`<button class="why" onclick="toggleTip(${q.i})">؟ نکتهٔ مهم این سؤال</button><div class="tip hidden" id="tip${q.i}"><strong>نکتهٔ کلیدی:</strong> ${q.tip}</div>`:`<div class="tip"><strong>نکتهٔ مهم:</strong> ${q.tip}</div>`}`:""}</div></article>`;
+ }).join("");
+ updateStats();
+}
+function answer(i,j){if(answers[i]!==undefined)return;answers[i]=j;render();document.getElementById("q"+i)?.scrollIntoView({behavior:"smooth",block:"center"});}
+function toggleTip(i){document.getElementById("tip"+i).classList.toggle("hidden")}
+function updateStats(){let done=Object.keys(answers).length,score=Object.keys(answers).filter(i=>answers[i]===questions[i].a).length;document.getElementById("done").textContent=fa(done);document.getElementById("score").textContent=fa(score);document.getElementById("percent").textContent=fa(done?Math.round(score/done*100):0)+"٪";document.getElementById("bar").style.width=(done/questions.length*100)+"%";document.getElementById("summary").classList.toggle("show",done===questions.length);if(done===questions.length){document.getElementById("finalScore").textContent=fa(score)+" از "+fa(questions.length);document.getElementById("finalText").textContent=score>=24?"تسلط عالی! تقریباً بر قواعد مسلطی.":score>=18?"خوب پیش رفتی؛ نکته‌های سؤال‌های غلط را دوباره بخوان.":"پیشنهاد می‌شود نکته‌های آموزشی را مرور کنی و آزمون را دوباره انجام بدهی."}}
+function restart(){answers={};filter="all";document.querySelectorAll(".toolbar button").forEach(b=>b.classList.toggle("active",b.dataset.filter==="all"));render();window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll(".toolbar button").forEach(b=>b.addEventListener("click",()=>{filter=b.dataset.filter;document.querySelectorAll(".toolbar button").forEach(x=>x.classList.toggle("active",x===b));render()}));
+document.getElementById("total").textContent=fa(questions.length);render();
+</script>
+</body></html>
