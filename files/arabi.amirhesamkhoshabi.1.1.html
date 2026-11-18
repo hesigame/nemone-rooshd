@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>بازی افعال | امیرحسام خوشابی</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--g:#f6b81c;--c:#38e1ff;--ok:#2ee59d;--bad:#ff5d7a}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:Vazirmatn,Tahoma,sans-serif;color:#eaf1ff;min-height:100vh;display:grid;place-items:center;padding:16px;overflow-x:hidden;background:radial-gradient(circle at 85% 0,#2c43a8,transparent 45%),radial-gradient(circle at 0 100%,#0d6e8c,transparent 42%),#0a1130}
+.bg{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.bg i{position:absolute;font:700 60px Amiri,serif;color:#fff;opacity:.07;animation:fl 14s linear infinite}
+@keyframes fl{from{transform:translateY(110vh) rotate(0)}to{transform:translateY(-20vh) rotate(40deg)}}
+.app{position:relative;width:min(520px,100%);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:30px;padding:22px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:13px}
+.top a,.top button{color:#cfe0ff;background:rgba(255,255,255,.1);border:0;border-radius:20px;padding:5px 12px;text-decoration:none;font:inherit;cursor:pointer}
+h1{font-size:clamp(40px,12vw,58px);font-weight:900;text-align:center;line-height:1.3;background:linear-gradient(90deg,var(--g),#ffe38a,var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{text-align:center;color:#b9c8ee;margin:6px 0 18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:18px}
+.chips span{background:rgba(255,255,255,.1);border-radius:20px;padding:5px 13px;font-size:13px}
+.big{display:block;width:100%;border:0;border-radius:18px;padding:14px;font:900 18px Vazirmatn,sans-serif;color:#2b1d00;background:linear-gradient(90deg,var(--g),#ffd965);cursor:pointer;box-shadow:0 8px 24px rgba(246,184,28,.35);transition:transform .15s}
+.big:hover{transform:translateY(-2px)}.big.alt{background:rgba(255,255,255,.12);color:#fff;box-shadow:none;margin-top:10px}
+.best{text-align:center;margin-top:14px;color:#b9c8ee;font-size:14px}
+.hud{display:flex;justify-content:space-between;align-items:center;font-weight:700}
+.sc{font-size:22px;color:var(--g)}
+.bar{height:10px;border-radius:10px;background:rgba(255,255,255,.12);margin:12px 0 16px;overflow:hidden}
+.bar b{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--ok),var(--g),var(--bad));background-size:300% 100%;transition:width .1s linear}
+.lab{text-align:center;color:#b9c8ee;font-size:14px}
+.word{font:700 clamp(34px,9vw,46px) Amiri,serif;text-align:center;margin:10px 0 18px;line-height:1.7;min-height:80px;display:grid;place-items:center}
+.opts{display:grid;gap:10px}
+.opt{border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;border-radius:16px;padding:13px;font:700 22px Amiri,Vazirmatn,serif;cursor:pointer;transition:transform .12s,background .2s}
+.opt:hover{transform:scale(1.02);background:rgba(255,255,255,.16)}
+.opt.ok{background:var(--ok);border-color:var(--ok);color:#06301f;animation:pop .4s}
+.opt.bad{background:var(--bad);border-color:var(--bad);animation:shk .4s}
+.opt.hide{visibility:hidden}
+@keyframes pop{50%{transform:scale(1.07)}}@keyframes shk{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.life{display:flex;gap:10px;margin-top:14px}
+.life button{flex:1;border:1px dashed rgba(255,255,255,.3);background:transparent;color:#dbe6ff;border-radius:14px;padding:8px;font:inherit;font-size:13px;cursor:pointer}
+.life button:disabled{opacity:.3;cursor:default}
+.note{text-align:center;min-height:26px;margin-top:10px;font-size:14px}
+.rank{font-size:30px;font-weight:900;text-align:center;color:var(--g);margin:6px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.stats div{background:rgba(255,255,255,.09);border-radius:14px;padding:10px;text-align:center;font-size:12px;color:#b9c8ee}.stats b{display:block;font-size:22px;color:#fff}
+.miss{max-height:160px;overflow:auto;font-size:14px;margin-bottom:12px}
+.miss div{padding:7px 4px;border-bottom:1px solid rgba(255,255,255,.1)}.miss span{font-family:Amiri,serif;font-size:19px}.miss em{color:var(--ok);font-style:normal}
+canvas{position:fixed;inset:0;pointer-events:none;z-index:9}
+</style>
+</head>
+<body>
+<div class="bg" id="bg"></div>
+<div class="app" id="app"></div>
+<canvas id="cf"></canvas>
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)},app=$('#app'),snd=true,ctx,T=15,N=10,st;
+var fa=function(n){return String(n).replace(/\d/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'[d]})};
+var TS=['ماضی','مضارع','امر'];
+/* بانک سؤال: t=زمان فعل | f=جای خالی | m=معنی | p=ضمیر */
+var Q=[
+['t','كَتَبَ',0],['t','يَكْتُبُ',1],['t','اُكْتُبْ',2],['t','ذَهَبْتُ',0],['t','تَذْهَبُونَ',1],['t','اِجْلِسْ',2],['t','دَرَسَتْ',0],['t','اِفْتَحُوا',2],['t','نَشْرَبُ',1],['t','سَمِعْنَا',0],['t','يَلْعَبَانِ',1],['t','اِسْمَعِي',2],
+['f','أَنَا ___ الدَّرْسَ','كَتَبْتُ',['كَتَبَتْ','كَتَبْنَا','كَتَبْتَ'],'ماضی «أنا» به «ـتُ» ختم می‌شود'],
+['f','نَحْنُ ___ فِي الْمَدْرَسَةِ','نَدْرُسُ',['يَدْرُسُ','تَدْرُسُ','أَدْرُسُ'],'مضارع «نحن» با «نَ» شروع می‌شود'],
+['f','هِيَ ___ إِلَى الصَّفِّ','ذَهَبَتْ',['ذَهَبَ','ذَهَبْتُ','ذَهَبْنَ'],'ماضی «هي» به «ـتْ» ختم می‌شود'],
+['f','أَنْتَ ___ الْبَابَ','اِفْتَحْ',['اِفْتَحِي','اِفْتَحُوا','تَفْتَحُ'],'امر «أنتَ» ساکن می‌شود'],
+['f','أَنْتِ ___ الْكِتَابَ','اِقْرَئِي',['اِقْرَأْ','اِقْرَؤُوا','تَقْرَأُ'],'امر «أنتِ» به «ـي» ختم می‌شود'],
+['f','هُمْ ___ الرِّسَالَةَ','كَتَبُوا',['كَتَبَا','كَتَبْنَ','كَتَبَتْ'],'ماضی «هم» به «ـوا» ختم می‌شود'],
+['f','أَنْتُمْ ___ الْقُرْآنَ','تَقْرَؤُونَ',['تَقْرَأُ','يَقْرَؤُونَ','تَقْرَأْنَ'],'مضارع «أنتم» با «تَ» و «ـونَ»'],
+['f','أَنَا ___ الْمَاءَ','أَشْرَبُ',['نَشْرَبُ','تَشْرَبُ','يَشْرَبُ'],'مضارع «أنا» با «أَ» شروع می‌شود'],
+['f','هُنَّ ___ إِلَى الْمَكْتَبَةِ','يَذْهَبْنَ',['يَذْهَبُونَ','تَذْهَبْنَ','يَذْهَبَانِ'],'مضارع «هنّ» با «يَ» و «ـنَ»'],
+['f','أَنْتُنَّ ___ هُنَا','اِجْلِسْنَ',['اِجْلِسُوا','اِجْلِسِي','اِجْلِسْ'],'امر «أنتنّ» به «ـنَ» ختم می‌شود'],
+['m','كَتَبَ','نوشت',['رفت','خواند','نشست']],['m','ذَهَبَ','رفت',['آمد','فهمید','باز کرد']],['m','يَفْتَحُ','باز می‌کند',['می‌بندد','می‌نویسد','می‌شنود']],['m','اِجْلِسْ','بنشین',['بایست','بخوان','برو']],['m','سَمِعْنَا','شنیدیم',['دیدیم','گفتیم','فهمیدیم']],['m','تَقْرَؤُونَ','می‌خوانید',['می‌نویسید','می‌شنوید','می‌روید']],['m','أَشْرَبُ','می‌نوشم',['می‌خورم','می‌خوانم','می‌روم']],['m','فَهِمُوا','فهمیدند',['شنیدند','نوشتند','رفتند']],
+['p','ذَهَبْنَ','هُنَّ',['نَحْنُ','أَنْتُنَّ','هُمَا']],['p','كَتَبْتُمْ','أَنْتُمْ',['أَنْتُنَّ','هُمْ','أَنْتَ']],['p','يَلْعَبُونَ','هُمْ',['أَنْتُمْ','هُنَّ','هُمَا']],['p','تَدْرُسِينَ','أَنْتِ',['هِيَ','أَنْتَ','أَنْتُنَّ']],['p','نَسْمَعُ','نَحْنُ',['أَنَا','هُمْ','أَنْتُمْ']]
+];
+var LAB={t:'زمان این فعل چیست؟',f:'جای خالی را کامل کن',m:'معنی این فعل چیست؟',p:'این فعل برای کدام ضمیر است؟'};
+function sh(a){return a.slice().sort(function(){return Math.random()-.5})}
+function best(v){try{if(v===undefined)return +localStorage.getItem('khoshabi-verbs-best')||0;localStorage.setItem('khoshabi-verbs-best',v)}catch(e){return 0}}
+function sfx(f,d,t){if(!snd)return;try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();var o=ctx.createOscillator(),g=ctx.createGain();o.type=t||'sine';o.frequency.value=f;g.gain.setValueAtTime(.14,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+d);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+d)}catch(e){}}
+function vib(n){try{navigator.vibrate&&navigator.vibrate(n)}catch(e){}}
+function topbar(){return '<div class="top"><a href="../index.html#/p/1/arabi" target="_top">← بازگشت به سایت</a><button id="sn">'+(snd?'🔊 صدا':'🔇 بی‌صدا')+'</button></div>'}
+function bindTop(){$('#sn').onclick=function(){snd=!snd;this.textContent=snd?'🔊 صدا':'🔇 بی‌صدا'}}
+
+function start(){
+  app.innerHTML=topbar()+'<h1>بازی افعال</h1><p class="sub">عربی نهم · ساخته‌ی امیرحسام خوشابی</p><div class="chips"><span>❤️ سه جان</span><span>⏱ '+fa(T)+' ثانیه</span><span>🔥 کمبو</span><span>🎯 '+fa(N)+' سؤال</span></div><button class="big" id="go">شروع بازی</button><p class="best">بهترین امتیاز: <b>'+fa(best())+'</b></p>';
+  bindTop();$('#go').onclick=function(){sfx(520,.12);play()}
+}
+function play(){
+  st={qs:sh(Q).slice(0,N),i:0,score:0,lives:3,streak:0,ok:0,miss:[],mx:0,h5:1,tm:1,lock:0};
+  ask();
+}
+function ask(){
+  var q=st.qs[st.i],o;
+  if(q[0]==='t')o=TS.map(function(x,i){return{t:x,ok:i===q[2]}});
+  else o=sh([{t:q[2],ok:1}].concat(q[3].map(function(x){return{t:x,ok:0}})));
+  st.o=o;st.q=q;st.t=T;st.lock=0;
+  app.innerHTML=topbar()+'<div class="hud"><span>'+'❤️'.repeat(st.lives)+'🖤'.repeat(3-st.lives)+'</span><span>'+(st.streak>1?'🔥 ×'+fa(st.streak)+' ':'')+'</span><span class="sc">'+fa(st.score)+'</span></div><div class="bar"><b id="tb"></b></div><p class="lab">سؤال '+fa(st.i+1)+' از '+fa(N)+' · '+LAB[q[0]]+'</p><div class="word">'+q[1]+'</div><div class="opts">'+o.map(function(x,i){return '<button class="opt" data-i="'+i+'">'+x.t+'</button>'}).join('')+'</div><div class="life"><button id="l1"'+(st.h5?'':' disabled')+'>✂️ حذف گزینه‌ی غلط</button><button id="l2"'+(st.tm?'':' disabled')+'>⏳ +۵ ثانیه</button></div><p class="note" id="nt"></p>';
+  bindTop();
+  var bs=app.querySelectorAll('.opt');
+  bs.forEach(function(b){b.onclick=function(){pick(+b.dataset.i)}});
+  $('#l1').onclick=function(){if(st.lock||!st.h5)return;st.h5=0;this.disabled=true;var w=[];st.o.forEach(function(x,i){if(!x.ok)w.push(i)});sh(w).slice(0,st.o.length>3?2:1).forEach(function(i){bs[i].classList.add('hide')});sfx(400,.1)};
+  $('#l2').onclick=function(){if(st.lock||!st.tm)return;st.tm=0;this.disabled=true;st.t+=5;sfx(700,.1)};
+  clearInterval(st.iv);
+  st.iv=setInterval(function(){st.t-=.1;var tb=$('#tb');if(tb)tb.style.width=Math.max(0,Math.min(100,st.t/T*100))+'%';if(st.t<=0)pick(-1)},100);
+}
+function pick(i){
+  if(st.lock)return;st.lock=1;clearInterval(st.iv);
+  var bs=app.querySelectorAll('.opt'),good=i>=0&&st.o[i].ok,nt=$('#nt');
+  st.o.forEach(function(x,k){if(x.ok)bs[k].classList.add('ok')});
+  if(good){
+    st.streak++;st.ok++;st.mx=Math.max(st.mx,st.streak);
+    var g=100+Math.ceil(Math.max(st.t,0))*10+(st.streak>1?(st.streak-1)*25:0);st.score+=g;
+    nt.innerHTML='<b style="color:var(--ok)">+'+fa(g)+'</b>'+(st.q[4]?' · '+st.q[4]:'');sfx(660,.12);setTimeout(function(){sfx(880,.16)},110);vib(25);
+  }else{
+    if(i>=0)bs[i].classList.add('bad');
+    st.lives--;st.streak=0;st.miss.push(st.q);
+    nt.innerHTML='<b style="color:var(--bad)">'+(i<0?'وقت تمام شد':'اشتباه')+'</b>'+(st.q[4]?' · '+st.q[4]:'');sfx(180,.3,'sawtooth');vib([60,40,60]);
+  }
+  setTimeout(function(){st.i++;(st.lives<=0||st.i>=N)?end():ask()},good?1000:1900);
+}
+function end(){
+  var c=st.ok,r=c>=9?'👑 فرمانده افعال':c>=7?'🏆 استاد صرف':c>=5?'⭐ شاگرد زرنگ':'🌱 تازه‌کار',nb=st.score>best();
+  if(nb)best(st.score);
+  var ms=st.miss.map(function(q){var a=q[0]==='t'?TS[q[2]]:q[2];return '<div><span>'+q[1]+'</span> ← <em>'+a+'</em></div>'}).join('');
+  app.innerHTML=topbar()+'<p class="lab">'+(st.lives<=0?'جان‌هات تمام شد':'بازی تمام شد')+'</p><div class="rank">'+r+'</div><h1 style="font-size:54px">'+fa(st.score)+'</h1>'+(nb?'<p class="sub">🎉 رکورد جدید!</p>':'<p class="sub">بهترین: '+fa(best())+'</p>')+'<div class="stats"><div><b>'+fa(c)+'</b>پاسخ درست</div><div><b>'+fa(st.mx)+'</b>بهترین کمبو</div><div><b>'+fa(st.miss.length)+'</b>اشتباه</div></div>'+(ms?'<p class="lab">مرور اشتباه‌ها</p><div class="miss">'+ms+'</div>':'')+'<button class="big" id="again">دوباره بازی کن</button><a class="big alt" style="text-align:center;text-decoration:none" href="../index.html#/p/1/arabi" target="_top">بازگشت به سایت</a>';
+  bindTop();$('#again').onclick=function(){sfx(520,.12);play()};
+  if(c>=7){conf();sfx(523,.15);setTimeout(function(){sfx(659,.15)},150);setTimeout(function(){sfx(784,.3)},300)}
+}
+function conf(){
+  var cv=$('#cf'),x=cv.getContext('2d'),w=cv.width=innerWidth,h=cv.height=innerHeight,cs=['#f6b81c','#38e1ff','#2ee59d','#ff5d7a','#fff'],p=[],f=0;
+  for(var k=0;k<110;k++)p.push({x:w/2,y:h/3,vx:(Math.random()-.5)*14,vy:Math.random()*-13,s:4+Math.random()*6,c:cs[k%5]});
+  (function d(){x.clearRect(0,0,w,h);p.forEach(function(a){a.x+=a.vx;a.y+=a.vy;a.vy+=.35;x.fillStyle=a.c;x.fillRect(a.x,a.y,a.s,a.s)});if(++f<130)requestAnimationFrame(d);else x.clearRect(0,0,w,h)})();
+}
+(function(){var b=$('#bg'),L='ابتثجحخدذرزسشصضطظعغفقكلمنهوي';for(var k=0;k<14;k++){var e=document.createElement('i');e.textContent=L[Math.floor(Math.random()*L.length)];e.style.cssText='left:'+Math.random()*95+'%;animation-delay:-'+Math.random()*14+'s;animation-duration:'+(10+Math.random()*10)+'s;font-size:'+(36+Math.random()*50)+'px';b.appendChild(e)}})();
+start();
+})();
+</script>
+</body>
+</html>
