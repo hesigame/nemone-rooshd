@@ -18,6 +18,17 @@
     return e;
   }
   var LOCK = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="3"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+  var EYE = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+  var EYEOFF = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M3 3l18 18"/></svg>';
+  /* کادر رمز با دکمه‌ی دیدن/پنهان کردن در گوشه */
+  function pw(inp) {
+    var b = el('button', { type: 'button', class: 'pw-eye', 'aria-label': 'نمایش رمز', html: EYE });
+    b.onclick = function () {
+      var show = inp.type === 'password'; inp.type = show ? 'text' : 'password';
+      b.innerHTML = show ? EYEOFF : EYE; b.setAttribute('aria-label', show ? 'پنهان کردن رمز' : 'نمایش رمز'); inp.focus();
+    };
+    return el('div', { class: 'pw-wrap' }, inp, b);
+  }
   function sub(id) { return JZ.subjects.filter(function (s) { return s.id === id; })[0]; }
   function sec(id) { return JZ.sections.filter(function (s) { return s.id === id; })[0]; }
   function setCrumbs(list) {
@@ -36,7 +47,7 @@
     var inp = el('input', { type: 'password', class: 'pw', placeholder: 'رمز را وارد کن', autocomplete: 'off', dir: 'ltr', 'aria-label': 'رمز' });
     var msg = el('p', { class: 'pw-msg', role: 'alert' });
     var btn = el('button', { type: 'submit', class: 'btn pw-btn' }, 'ورود');
-    var form = el('form', { class: 'card lock' }, el('div', { class: 'lock-ico', 'aria-hidden': 'true', html: LOCK }), el('h2', null, title), el('p', { class: 'meta' }, text), inp, msg, btn);
+    var form = el('form', { class: 'card lock' }, el('div', { class: 'lock-ico', 'aria-hidden': 'true', html: LOCK }), el('h2', null, title), el('p', { class: 'meta' }, text), pw(inp), msg, btn);
     form.addEventListener('submit', function (e) {
       e.preventDefault(); btn.disabled = true; msg.textContent = '';
       setTimeout(function () {
@@ -107,7 +118,7 @@
     view.replaceChildren(head(s.title + ' · ' + c.title, list.length ? 'روی هر مورد بزن تا باز شود.' : ''), list.length ? box : empty('هنوز چیزی در این بخش اضافه نشده است.'));
   }
 
-  window.JZUI = { el: el, fa: fa, gate: gate, head: head, empty: empty, view: view };
+  window.JZUI = { pw: pw, el: el, fa: fa, gate: gate, head: head, empty: empty, view: view };
 
   /* ---- تم ---- */
   var root = document.documentElement;
