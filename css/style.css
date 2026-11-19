@@ -155,7 +155,7 @@ body.viewing main{width:100%;padding:0}
 .lock{width:min(400px,100%);text-align:center;align-items:center;gap:8px}
 .lock-ico{width:72px;height:72px;border-radius:22px;background:var(--tint);color:var(--brand);display:grid;place-items:center;margin-bottom:6px}
 .lock h2{font-size:26px;font-weight:900;color:var(--head)}
-.pw{width:100%;margin-top:12px;padding:13px 16px;border-radius:16px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:17px;text-align:center;letter-spacing:1px}
+.pw{width:100%;margin-top:0;padding:13px 16px;border-radius:16px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:17px;text-align:center;letter-spacing:1px}
 .pw:focus{outline:none;border-color:var(--brand)}
 .pw-msg{color:#e0426a;min-height:24px;font-size:14px}
 .pw-btn{width:100%;border:0;margin-top:0;cursor:pointer}.pw-btn:disabled{opacity:.6}
@@ -193,3 +193,9 @@ body.viewing main{width:100%;padding:0}
 details.card{margin-top:20px}details summary{cursor:pointer;font-weight:700;margin-bottom:10px}
 .card+.card{margin-top:20px}
 @media (max-width:560px){.two{grid-template-columns:1fr}}
+
+.pw-wrap{position:relative;width:100%;margin-top:12px}
+.pw-wrap .pw,.pw-wrap .in{padding-inline:46px}
+.pw-eye{position:absolute;left:8px;top:50%;transform:translateY(-50%);width:36px;height:36px;display:grid;place-items:center;border:0;border-radius:50%;background:none;color:var(--muted);cursor:pointer}
+.pw-eye:hover{background:var(--tint);color:var(--brand)}
+.fld .pw-wrap{margin-top:0}
