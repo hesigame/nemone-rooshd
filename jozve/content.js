@@ -8,5 +8,14 @@ window.JZ_ITEMS = [
   "date": "1405/08/28",
   "body": "416666",
   "images": []
+ },
+ {
+  "id": "mwng1hft",
+  "subject": "riazi",
+  "section": "takalif",
+  "title": "274",
+  "date": "1405/08/28",
+  "body": "41968458",
+  "images": []
  }
 ];
